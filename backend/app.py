@@ -7,22 +7,17 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route("/upload", methods=["POST"])
 def upload_video():
-    if 'video' not in request.files:
-        return jsonify(error="No video part"), 400
+    f = request.files.get('video')
+    if not f:
+        return jsonify(error="No file"), 400
 
-    video = request.files['video']
-    data = video.read()  # raw bytes of the .webm blob
+    data = f.read()
+    # metadata
+    print(f"Received file: {f.filename}")
+    print(f"Content-Type: {f.content_type}")
+    print(f"Total bytes: {len(data)}")
 
-    # TODO: run your ML/computation on `data` bytes
-    # e.g. save to disk or directly feed into your processing function
-    # with open("/tmp/upload.webm", "wb") as f:
-    #     f.write(data)
-    #
-    # result = your_processing_function(data)
-
-    # For demonstration, we just return the size:
-    result = {"message": f"Received {len(data)} bytes of video."}
-    return jsonify(result)
+    return jsonify(message=f"Got {len(data)} bytes")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
