@@ -25,3 +25,10 @@ dist-ssr
 
 #env
 .env
+
+# Virtual env
+backend/venv/
+# Byte-compiled / optimized / DLL files
+backend/**/*.py[cod]
+backend/**/*.pyo
+backend/**/__pycache__/

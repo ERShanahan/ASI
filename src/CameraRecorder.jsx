@@ -6,12 +6,12 @@ export default function CameraRecorder() {
   const [stream, setStream] = useState(null);
   const [recording, setRecording] = useState(false);
   const [facingMode, setFacingMode] = useState('user');
+  const [loading, setLoading] = useState(false);
+  const [text, setText] = useState('');
 
-  // start or restart preview
+  // init camera
   const startPreview = async () => {
-    if (stream) {
-      stream.getTracks().forEach(t => t.stop());
-    }
+    if (stream) stream.getTracks().forEach(t => t.stop());
     try {
       const newStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode },
@@ -20,7 +20,8 @@ export default function CameraRecorder() {
       videoRef.current.srcObject = newStream;
       setStream(newStream);
     } catch (err) {
-      console.error('Error accessing camera:', err);
+      console.error('Camera error:', err);
+      setText('Unable to access camera');
     }
   };
 
@@ -29,45 +30,64 @@ export default function CameraRecorder() {
     return () => stream && stream.getTracks().forEach(t => t.stop());
   }, [facingMode]);
 
-  // handle start/stop recording
+  // upload and extract text
+  const uploadBlob = async blob => {
+    setLoading(true);
+    setText('');
+    try {
+      const form = new FormData();
+      form.append('video', blob, 'capture.webm');
+
+      const res = await fetch(
+        import.meta.env.VITE_API_URL + '/upload',
+        { method: 'POST', body: form }
+      );
+      if (!res.ok) throw new Error(`Server ${res.status}`);
+      const data = await res.json();
+
+      // assume API returns { message: "some text" }
+      setText(data.message ?? JSON.stringify(data));
+    } catch (err) {
+      console.error('Upload failed:', err);
+      setText(`Error: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // start/stop recording
   const handleRecord = () => {
     if (!recording) {
       const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
       let chunks = [];
       recorder.ondataavailable = e => chunks.push(e.data);
-      recorder.onstop = async () => {
+      recorder.onstop = () => {
         const blob = new Blob(chunks, { type: 'video/webm' });
-        const form = new FormData();
-        form.append('video', blob, 'capture.webm');
-        try {
-          const res = await fetch(
-            import.meta.env.VITE_API_URL + '/upload',
-            { method: 'POST', body: form }
-          );
-          const data = await res.json();
-          alert('Backend says: ' + JSON.stringify(data));
-        } catch (err) {
-          console.error('Upload failed:', err);
-        }
+        uploadBlob(blob);
       };
       recorder.start();
       recorderRef.current = recorder;
+      setText(''); // clear old text
     } else {
       recorderRef.current.stop();
     }
-    setRecording(!recording);
+    setRecording(r => !r);
   };
 
   return (
-    <>
+    <div style={{ width: '100%', maxWidth: 800 }}>
       <div className="video-container">
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          muted
-        />
+        <video ref={videoRef} autoPlay playsInline muted />
       </div>
+
+      <div className="api-response">
+        {loading
+          ? 'Processing...'
+          : text
+          ? text
+          : 'Record a clip to Translate.'}
+      </div>
+
       <div className="controls">
         <button className="button" onClick={handleRecord}>
           {recording ? 'Stop Recording' : 'Start Recording'}
@@ -81,6 +101,8 @@ export default function CameraRecorder() {
           Switch Camera
         </button>
       </div>
-    </>
+
+      
+    </div>
   );
 }
