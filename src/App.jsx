@@ -1,14 +1,28 @@
 import React from 'react';
-import CameraRecorder from './CameraRecorder';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import CameraRecorder from './pages/CameraRecorder';
+import Learn from './pages/Learn'
 import './index.css';
 
 export default function App() {
   return (
-    <div className="app-container">
-      <h1 style={{ marginBottom: '1.5rem', color: '#f1f1f1' }}>
-        AS Interpreter
-      </h1>
-      <CameraRecorder />
-    </div>
+    <BrowserRouter>
+      <div className="app-container">
+        <Header />
+
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/record" element={<CameraRecorder />} />
+            <Route path="/learn" element={<Learn />} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }

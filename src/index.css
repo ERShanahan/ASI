@@ -7,25 +7,23 @@ html, body, #root {
   color: #f1f1f1;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 /* overall app container */
 .app-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100%;
   padding: 1rem;
   box-sizing: border-box;
 }
 
 /* video wrapper keeps a 16:9 aspect ratio */
-.video-container {
+.app-container .video-container {
   position: relative;
   width: 100%;
   max-width: 800px;
+  margin-top: 6rem;
   aspect-ratio: 16 / 9;
   background: #000;
   border-radius: 1rem;
@@ -34,7 +32,7 @@ html, body, #root {
 }
 
 /* actual video fills container */
-.video-container video {
+.app-container .video-container video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -82,3 +80,170 @@ html, body, #root {
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   text-align: center;
 }
+
+/* Header */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4rem;            /* measure this in your UI */
+  z-index: 100;
+  background: #1f1f1f;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.site-header nav {
+  display: flex;
+  justify-content: center;   /* centers the links horizontally */
+  align-items: center;       /* centers them vertically */
+  gap: 1.5rem;               /* space between buttons */
+}
+
+/* reset the old right-margin and let `gap` handle spacing */
+.nav-link {
+  margin: 0;
+}
+.site-header .nav-link {
+  margin-top: 1rem;
+  margin-right: 1.5rem;
+  color: #f1f1f1;
+  text-decoration: none;
+  font-weight: 500;
+}
+.site-header .nav-link.active {
+  border-bottom: 2px solid #0070f3;
+}
+
+/* Main content spacing */
+.main-content {
+  padding-top: 4rem;
+  flex: 1;              /* push footer to bottom */
+  width: 100%;
+  max-width: 1280px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* Footer */
+.site-footer {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: #1f1f1f;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Home page cards */
+.home-page .examples {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.home-page .card {
+  background: #2e2e2e;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 300px;
+  text-align: left;
+}
+
+.learning-page {
+  padding: 1rem;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.search-container {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  align-items: center;
+}
+
+/* Styled search bar */
+.search-input {
+  width: 100%;
+  max-width: 600px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 9999px;
+  background-color: #3a3a3a;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.search-input::placeholder {
+  color: #ffffff;
+  font-style: italic;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+  background-color: #4a4a4a;
+}
+
+/* Wrap all video items below the search bar */
+.results {
+  margin-top: 1rem;     /* small gap under search bar */
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* No-results message */
+.no-results {
+  color: #ccc;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Each video + label container */
+.item-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background: #1f1f1f;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  }
+
+.item-container .results-video {
+  aspect-ratio: 16/9;
+  width: 100%;
+}
+
+.item-container .results-video .video {
+  width: 100%;
+  height: 100%;
+}
+
+/* Label below each video */
+.label {
+  padding: 1rem;
+  background: #2e2e2e;
+  text-align: center;
+}
+.label .text {
+  margin: 0;
+  color: #f1f1f1;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
