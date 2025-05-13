@@ -35,7 +35,7 @@ class tokenizer:
                 std=[0.229, 0.224, 0.225]
             )
         ])
-
+        
     def tokenize(self, video_source) -> torch.Tensor:
         """
         Accepts either raw video bytes or a file path and returns a tensor of frames.
