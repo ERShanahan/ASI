@@ -12,6 +12,9 @@ export default function Home() {
           <Link to="/record" className="get-started-btn">
             Get Started
           </Link>
+          <h2>
+            Unfortunately, We only currently support finger spelling. Word-Level Support Coming soon!
+          </h2>
         </div>
       </section>
 
