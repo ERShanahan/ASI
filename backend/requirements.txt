@@ -2,7 +2,6 @@ Flask
 flask-cors
 
 torch
-torch.nn
 numpy
 io
 mediapipe
