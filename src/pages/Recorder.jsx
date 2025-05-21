@@ -90,7 +90,6 @@ export default function LocalHandOverlay() {
         });
         const data = await res.json();
         if (data.prediction) setPrediction(data.prediction);
-        console.log(data.prediction)
       } catch (e) {
         console.error('Predict error:', e);
       }
@@ -101,17 +100,18 @@ export default function LocalHandOverlay() {
 
 
   return (
-    <div style={{ position: 'relative', width: '100%' }}>
-      <div style={{transform: 'scaleX(-1)'}}>
+    <div className="app-container learning-page">
+      <div className="video-container" style={{ transform: 'scaleX(-1)' }}>
         <video
           ref={videoRef}
-          style={{ width: '100%', borderRadius: 8, background: '#000' }}
+          className="video-element"
           autoPlay
           playsInline
           muted
         />
         <canvas
           ref={canvasRef}
+          className="canvas-overlay"
           style={{
             position: 'absolute',
             top: 0,
@@ -121,35 +121,16 @@ export default function LocalHandOverlay() {
             height: '100%',
           }}
         />
+        <div className="api-response overlay-response">
+          {prediction}
+        </div>
       </div>
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '10%',
-          left: '5%',
-          padding: '0.5rem 1rem',
-          background: 'rgba(0,0,0,0.5)',
-          color: '#fff',
-          fontSize: '2rem',
-          borderRadius: '8px',
-        }}
-      >
-        {prediction}
+
+      <div className="controls">
+        <button className="button" onClick={() => setTranslating(t => !t)}>
+          {translating ? 'Stop Translating' : 'Start Translating'}
+        </button>
       </div>
-      {/* Start/Stop Translating */}
-      <button
-        onClick={() => setTranslating(t => !t)}
-        style={{
-          position: 'absolute',
-          bottom: '10%',
-          left: '80%',
-          padding: '0.5rem 1rem',
-          fontSize: '1rem',
-          borderRadius: '4px',
-        }}
-      >
-        {translating ? 'Stop Translating' : 'Start Translating'}
-      </button>
     </div>
   );
 }

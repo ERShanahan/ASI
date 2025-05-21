@@ -1,0 +1,99 @@
+/* Home.css — Minimalist light theme with green accents */
+:root {
+    --primary-color: #2ecc71;
+    --secondary-color: #34495e;
+    --background-light: #ecf0f1;
+    --background-contrast: #ffffff;
+    --text-color: #2c3e50;
+  }
+  
+  .home-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--background-light);
+    color: var(--text-color);
+  }
+  
+  /* Parallax hero section */
+  .parallax-section {
+    background-image: url('/images/background.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    position: relative;
+  }
+  
+  .parallax-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(236, 240, 241, 0.5);
+  }
+  
+  .app-title {
+    font-size: 4rem;
+    color: var(--text-color);
+    margin: 0 1rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  }
+  
+  .get-started-btn {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--secondary-color);
+    color: var(--background-contrast);
+    border: 2px solid var(--secondary-color);
+    border-radius: 0.5rem;
+    font-size: 1.25rem;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.1s;
+  }
+  .get-started-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+  }
+  
+  /* Info cards section */
+  .info-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 3rem 1rem;
+    background: var(--background-contrast);
+  }
+  
+  .info-card {
+    flex: 1;
+    max-width: 320px;
+    margin: 0 1rem;
+    padding: 1.5rem;
+    background: var(--background-light);
+    border: 1px solid var(--primary-color);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    text-align: center;
+  }
+  
+  .info-card h2 {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid var(--primary-color);
+    display: inline-block;
+    padding-bottom: 0.25rem;
+  }
+  
+  .info-card p {
+    font-size: 1rem;
+    color: var(--text-color);
+    line-height: 1.5;
+  }
+  

@@ -1,3 +1,19 @@
+/* App.css — Minimalist light theme with green accents */
+:root {
+  --primary-color: #2ecc71;
+  --secondary-color: #34495e;
+  --background-light: #ecf0f1;
+  --background-contrast: #ffffff;
+  --text-color: #2c3e50;
+}
+
+body {
+  background-color: var(--background-light);
+  color: var(--text-color);
+  font-family: system-ui, sans-serif;
+  margin: 0;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -11,32 +27,50 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em var(--primary-color));
 }
+
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em rgba(46, 204, 113, 0.7));
+}
+
+.get-started-btn {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: var(--background-contrast);
+  border: 2px solid var(--secondary-color);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.get-started-btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--background-contrast);
+}
+
+.card {
+  padding: 2em;
+  background-color: var(--background-contrast);
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.read-the-docs {
+  color: var(--secondary-color);
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

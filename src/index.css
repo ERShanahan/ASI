@@ -1,15 +1,24 @@
-/* make root fill the screen */
+/* index.css — Minimalist light theme with green accents */
+:root {
+  --primary-color: #2ecc71;
+  --secondary-color: #34495e;
+  --background-light: #ecf0f1;
+  --background-contrast: #ffffff;
+  --text-color: #2c3e50;
+}
+
+/* Fill the screen */
 html, body, #root {
   height: 100%;
   margin: 0;
   font-family: system-ui, sans-serif;
-  background:  #2e2e2e;
-  color: #f1f1f1;
+  background: var(--background-light);
+  color: var(--text-color);
   display: flex;
   justify-content: center;
 }
 
-/* overall app container */
+/* App container and layout */
 .app-container {
   display: flex;
   flex-direction: column;
@@ -18,67 +27,84 @@ html, body, #root {
   box-sizing: border-box;
 }
 
-/* video wrapper keeps a 16:9 aspect ratio */
-.app-container .video-container {
+/* Video container with 16:9 aspect and relative positioning */
+.video-container {
   position: relative;
   width: 100%;
   max-width: 800px;
-  margin-top: 6rem;
+  margin: 6rem auto 0;
   aspect-ratio: 16 / 9;
-  background: #000;
+  background: var(--secondary-color);
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-/* actual video fills container */
-.app-container .video-container video {
+/* Mirror the video and overlay at the container level */
+.video-container {
+  transform: scaleX(-1);
+}
+
+/* Video element fills container */
+.video-element {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 0.5rem;
 }
 
-/* controls row */
+/* Canvas overlay sits on top of video */
+.canvas-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Prediction overlay box */
+.overlay-response {
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  margin: 0;
+  background-color: rgba(236, 240, 241, 0.8);
+  color: var(--text-color);
+  font-size: 2rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: scaleX(-1);
+}
+
+/* Controls row */
 .controls {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  margin-top: 1.5rem;
+  margin: 1.5rem 0;
 }
 
-/* button styling */
+/* Button styling */
 .button {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
-  background-color: #0070f3;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--background-contrast);
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 .button:hover {
-  background-color: #005bb5;
+  background-color: #27ae60;
   transform: translateY(-1px);
 }
 .button:active {
-  background-color: #004494;
+  background-color: #1e874b;
   transform: translateY(0);
-}
-
-.api-response {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: #2e2e2e;
-  color: #ffffff;
-  border-radius: 0.5rem;
-  min-height: 1rem;
-  max-width: 800px;
-  font-size: 1rem;
-  line-height: 1.4;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  text-align: center;
 }
 
 /* Header */
@@ -87,38 +113,32 @@ html, body, #root {
   top: 0;
   left: 0;
   right: 0;
-  height: 4rem;            /* measure this in your UI */
+  height: 4rem;
   z-index: 100;
-  background: #1f1f1f;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  background: var(--background-contrast);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .site-header nav {
   display: flex;
-  justify-content: center;   /* centers the links horizontally */
-  align-items: center;       /* centers them vertically */
-  gap: 1.5rem;               /* space between buttons */
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  height: 100%;
 }
-
-/* reset the old right-margin and let `gap` handle spacing */
 .nav-link {
   margin: 0;
-}
-.site-header .nav-link {
-  margin-top: 1rem;
-  margin-right: 1.5rem;
-  color: #f1f1f1;
+  color: var(--secondary-color);
   text-decoration: none;
   font-weight: 500;
 }
-.site-header .nav-link.active {
-  border-bottom: 2px solid #0070f3;
+.nav-link.active {
+  border-bottom: 2px solid var(--primary-color);
 }
 
 /* Main content spacing */
 .main-content {
   padding-top: 4rem;
-  flex: 1;              /* push footer to bottom */
+  flex: 1;
   width: 100%;
   max-width: 1280px;
   margin: 2rem auto;
@@ -130,9 +150,11 @@ html, body, #root {
 .site-footer {
   width: 100%;
   padding: 1rem 2rem;
-  background: #1f1f1f;
+  background: var(--background-contrast);
   text-align: center;
   font-size: 0.9rem;
+  color: var(--secondary-color);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Home page cards */
@@ -142,16 +164,16 @@ html, body, #root {
   justify-content: center;
   flex-wrap: wrap;
 }
-
 .home-page .card {
-  background: #2e2e2e;
+  background: var(--background-contrast);
   padding: 1.5rem;
   border-radius: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 300px;
   text-align: left;
 }
 
+/* Learning page */
 .learning-page {
   padding: 1rem;
   box-sizing: border-box;
@@ -160,6 +182,7 @@ html, body, #root {
   overflow-y: auto;
 }
 
+/* Search bar */
 .search-container {
   position: relative;
   margin: 0 auto;
@@ -169,81 +192,72 @@ html, body, #root {
   padding: 1rem 0;
   align-items: center;
 }
-
-/* Styled search bar */
 .search-input {
   width: 100%;
   max-width: 600px;
   padding: 0.75rem 1rem;
   font-size: 1rem;
-  border: none;
+  border: 2px solid var(--primary-color);
   border-radius: 9999px;
-  background-color: #3a3a3a;
-  color: #ffffff;
+  background-color: var(--background-contrast);
+  color: var(--text-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s ease, transform 0.1s ease;
 }
-
 .search-input::placeholder {
-  color: #ffffff;
+  color: #888888;
   font-style: italic;
 }
-
 .search-input:focus {
   outline: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transform: translateY(-1px);
-  background-color: #4a4a4a;
+  border-color: var(--primary-color);
 }
 
-/* Wrap all video items below the search bar */
+/* Results */
 .results {
-  margin-top: 1rem;     /* small gap under search bar */
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
-
-/* No-results message */
 .no-results {
-  color: #ccc;
+  color: #666666;
   text-align: center;
   font-style: italic;
 }
 
-/* Each video + label container */
+/* Video + label container */
 .item-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    background: #1f1f1f;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-  }
-
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--background-contrast);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 .item-container .results-video {
   aspect-ratio: 16/9;
   width: 100%;
 }
-
 .item-container .results-video .video {
   width: 100%;
   height: 100%;
 }
 
-/* Label below each video */
+/* Label */
 .label {
   padding: 1rem;
-  background: #2e2e2e;
+  background: var(--background-light);
   text-align: center;
 }
 .label .text {
   margin: 0;
-  color: #f1f1f1;
+  color: var(--secondary-color);
   font-size: 1.125rem;
   font-weight: 500;
 }
-
