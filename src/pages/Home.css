@@ -13,6 +13,8 @@
     padding: 0;
     background: var(--background-light);
     color: var(--text-color);
+    display: flex;
+    flex-direction: column;
   }
   
   /* Parallax hero section */
