@@ -6,17 +6,25 @@ import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
 
 export default function LocalHandOverlay() {
   const videoRef  = useRef(null);
+  const cameraRef = useRef(null);
   const canvasRef = useRef(null);
   const landmarksRef = useRef(null);
 
   const [prediction, setPrediction ] = useState('');
   const [translating, setTranslating] = useState(false);
 
+  const [isFront, setIsFront] = useState(true);
+
   const THROTTLE_MS = 1000;
 
   const API_URL = import.meta.env.VITE_API_URL + 'upload';
 
   useEffect(() => {
+
+    const facingMode = isFront ? 'user' : 'environment';
+
+    cameraRef.current?.stop();
+
     // 1) Initialize MediaPipe Hands
     const hands = new Hands({
       locateFile: (file) =>
@@ -68,14 +76,16 @@ export default function LocalHandOverlay() {
       },
       width: 1280,
       height: 720,
+      facingMode,
     });
+    cameraRef.current = camera;
     camera.start();
 
     return () => {
       camera.stop();
       hands.close();
     };
-  }, []);
+  }, [isFront]);
 
   useEffect(() => {
     if (!translating) return;
@@ -124,12 +134,22 @@ export default function LocalHandOverlay() {
         <div className="api-response overlay-response">
           {prediction}
         </div>
-      </div>
 
-      <div className="controls">
-        <button className="button" onClick={() => setTranslating(t => !t)}>
-          {translating ? 'Stop Translating' : 'Start Translating'}
-        </button>
+        <div className="controls">
+          <button className="button" onClick={() => setTranslating(t => !t)}>
+            {translating ? 'Stop Translating' : 'Start Translating'}
+          </button>
+        </div>
+
+        <div className='camera-controls'>
+          <button
+              className="button"
+              onClick={() => setIsFront(f => !f)}
+            >
+              Switch Camera
+          </button>
+        </div>
+
       </div>
     </div>
   );

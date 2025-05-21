@@ -10,9 +10,9 @@ export default function Header() {
         <NavLink to="/record" className="nav-link">
           Record
         </NavLink>
-        <NavLink to="/learn" className="nav-link">
+        {/* <NavLink to="/learn" className="nav-link">
           Learn
-        </NavLink>
+        </NavLink> */}
       </nav>
     </header>
   );

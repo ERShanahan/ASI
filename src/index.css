@@ -14,8 +14,7 @@ html, body, #root {
   font-family: system-ui, sans-serif;
   background: var(--background-light);
   color: var(--text-color);
-  display: flex;
-  justify-content: center;
+  display: block;
 }
 
 /* App container and layout */
@@ -29,15 +28,16 @@ html, body, #root {
 
 /* Video container with 16:9 aspect and relative positioning */
 .video-container {
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-  margin: 6rem auto 0;
-  aspect-ratio: 16 / 9;
-  background: var(--secondary-color);
-  border-radius: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  background: black;    /* optional, so any bars are black */
+  border-radius: 0;     /* flush edges */
 }
 
 /* Mirror the video and overlay at the container level */
@@ -80,11 +80,19 @@ html, body, #root {
 
 /* Controls row */
 .controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  margin: 1.5rem 0;
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  z-index: 10;
+  transform: scaleX(-1);
+}
+
+.camera-controls {
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  z-index: 10;
+  transform: scaleX(-1);
 }
 
 /* Button styling */
