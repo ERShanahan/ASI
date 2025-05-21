@@ -40,7 +40,6 @@ def upload_frame():
 
     with torch.no_grad():
         logits = model(tensor)
-        print(logits)
         probs  = nn.functional.softmax(logits, dim=1)[0]
         idx    = int(probs.argmax())
         prob_list = probs.cpu().tolist()
