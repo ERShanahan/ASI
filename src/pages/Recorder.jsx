@@ -132,7 +132,7 @@ export default function LocalHandOverlay() {
           }}
         />
         <div className="api-response overlay-response">
-          {prediction}
+          {translating? prediction : ' '}
         </div>
 
         <div className="controls">
