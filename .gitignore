@@ -32,3 +32,4 @@ backend/venv/
 backend/**/*.py[cod]
 backend/**/*.pyo
 backend/**/__pycache__/
+backend/weights
