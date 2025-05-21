@@ -15,7 +15,7 @@ device = torch.device("cpu")
 model = HandPointClassifier(29).to(device)
 model.eval()
 
-weights_path = "./weights/asl_fingerspell_mlp.pth"
+weights_path = "./asl_fingerspell_mlp.pth"
 state = torch.load(weights_path, map_location=device)
 model.load_state_dict(state)
 
