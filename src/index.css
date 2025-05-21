@@ -40,11 +40,6 @@ html, body, #root {
   border-radius: 0;     /* flush edges */
 }
 
-/* Mirror the video and overlay at the container level */
-.video-container {
-  transform: scaleX(-1);
-}
-
 /* Video element fills container */
 .video-element {
   width: 100%;
@@ -75,7 +70,6 @@ html, body, #root {
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transform: scaleX(-1);
 }
 
 /* Controls row */
@@ -84,15 +78,13 @@ html, body, #root {
   bottom: 5%;
   right: 5%;
   z-index: 10;
-  transform: scaleX(-1);
 }
 
 .camera-controls {
   position: absolute;
   top: 15%;
-  left: 5%;
+  right: 5%;
   z-index: 10;
-  transform: scaleX(-1);
 }
 
 /* Button styling */

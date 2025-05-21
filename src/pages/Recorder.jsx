@@ -77,6 +77,7 @@ export default function LocalHandOverlay() {
       width: 1280,
       height: 720,
       facingMode,
+      flipHorizontal: false,
     });
     cameraRef.current = camera;
     camera.start();
@@ -107,11 +108,9 @@ export default function LocalHandOverlay() {
     return () => clearInterval(iv);
   }, [translating]);
 
-
-
   return (
     <div className="app-container learning-page">
-      <div className="video-container" style={{ transform: 'scaleX(-1)' }}>
+      <div className="video-container">
         <video
           ref={videoRef}
           className="video-element"
