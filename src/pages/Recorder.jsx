@@ -146,7 +146,7 @@ export default function LocalHandOverlay() {
               className="button"
               onClick={() => setIsFront(f => !f)}
             >
-              Switch Camera
+              { isFront? 'Front' : 'Back' }
           </button>
         </div>
 
