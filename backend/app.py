@@ -1,9 +1,7 @@
 from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
 from io import BytesIO
-from PIL import Image
 import numpy as np
-import cv2
 import mediapipe as mp
 
 import torch

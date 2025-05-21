@@ -1,3 +1,9 @@
 Flask
 flask-cors
-av
+
+torch
+torch.nn
+numpy
+io
+mediapipe
+gunicorn
